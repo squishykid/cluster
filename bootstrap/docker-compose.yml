@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  dhcp:
+    build: ./dhcp
+    privileged: true
+    network_mode: "host"
+    environment:
+      - SERVER_IP=192.168.11.1
+      - DHCP_RANGE=192.168.11.10,192.168.11.20
+    ports:
+      - 53:53
+      - 53:53/udp
+      - 67:67/udp
+  nfs:
+    build:
+      context: ./nfs
+    environment:
+      - SERVER_IP=192.168.11.1
+    ports:
+      - 111:111
+      - 111:111/udp
+      - 2049:2049
+      - 2049:2049/udp
