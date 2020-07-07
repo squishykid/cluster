@@ -6,8 +6,9 @@ ENV URL=https://downloads.raspberrypi.org/raspbian_lite/archive/2020-02-14-13:49
 
 RUN wget ${URL}/boot.tar.xz -O- | tar -C /opt/os/boot -xJf -
 RUN apk --update --no-cache add dnsmasq bash
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh.dhcp /entrypoint.sh
 COPY dnsmasq.conf /etc/dnsmasq.conf
+COPY cmdline.txt /opt/os/boot/cmdline.txt
 
 EXPOSE 53/tcp 53/tcp 67/udp
 
