@@ -1,0 +1,12 @@
+[Unit]
+Description=runme.sh
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/payload/runme.sh
+RemainAfterExit=true
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target

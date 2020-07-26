@@ -10,6 +10,13 @@ COPY entrypoint.sh.nfs /entrypoint.sh
 COPY exports /etc/exports
 COPY fstab /opt/os/root/etc/fstab
 
+# install payload as systemd service and load
+COPY payload /opt/os/root/payload 
+COPY payload.service /opt/os/root/lib/systemd/system/payload.service
+RUN mkdir -p /opt/os/root/lib/systemd/system/multi-user.target.wants
+RUN ln -s ../payload.service /opt/os/root/lib/systemd/system/multi-user.target.wants/payload.service
+# RUN mkdir /opt/os/root/boot && touch /opt/os/root/boot/ssh
+
 EXPOSE 111/udp 111/tcp 2049/tcp 2049/udp
 
 ENTRYPOINT ["/entrypoint.sh"]
