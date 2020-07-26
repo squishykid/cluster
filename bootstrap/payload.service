@@ -6,7 +6,8 @@ After=network.target
 Type=oneshot
 ExecStart=/payload/runme.sh
 RemainAfterExit=true
-StandardOutput=journal
+StandardOutput=journal+console
+StandardError=journal+console
 
 [Install]
 WantedBy=multi-user.target

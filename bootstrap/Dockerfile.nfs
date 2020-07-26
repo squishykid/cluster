@@ -1,10 +1,14 @@
 FROM alpine
 
-RUN mkdir -p /opt/os/boot /opt/os/root
+RUN mkdir -p /opt/os/root /opt/os/root/copyme
 
 ENV URL=https://downloads.raspberrypi.org/raspbian_lite/archive/2020-02-14-13:49
 
-RUN wget ${URL}/root.tar.xz -O- | tar -C /opt/os/root -xJf -
+RUN wget -P /opt/os/root ${URL}/root.tar.xz
+RUN wget -P /opt/os/root ${URL}/boot.tar.xz
+
+RUN tar -C /opt/os/root -xJf /opt/os/root/root.tar.xz
+RUN tar -C /opt/os/root/copyme -xJf /opt/os/root/root.tar.xz
 RUN apk --update --no-cache add bash unfs3
 COPY entrypoint.sh.nfs /entrypoint.sh
 COPY exports /etc/exports
