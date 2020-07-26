@@ -35,3 +35,6 @@ Downsides include it being a tad slower. However- `Make It Work Make It Right Ma
 
 none
 
+## Developing
+
+Changing the `exports` file to contain `/opt/os/root (rw,no_root_squash)` will make it easier to develop code on the raspberry pi. The `touch /opt/os/root/boot/ssh` line in `Dockerfile.nfs` can be uncommented to enable ssh access. This must be enabled alongside rw nfs.
