@@ -4,6 +4,12 @@ set -exuo pipefail
 
 SD_CARD=/dev/mmcblk0
 
+while [ ! -e ${SD_CARD} ]; do
+    echo "waiting for sd card"
+    sleep 5
+done
+echo "sd card found"
+
 # check if sd card is present
 ls ${SD_CARD}
 
