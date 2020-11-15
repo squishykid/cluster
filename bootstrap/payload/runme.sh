@@ -78,6 +78,13 @@ sed -i "s/56cd6262/${BOOT_UUID}/g" /tmp/root/etc/fstab
 sed -i "s/56cd6262/${BOOT_UUID}/g" /tmp/boot/cmdline.txt
 touch /tmp/boot/ssh
 
+# patch hostname with mac address
+MAC_ADDRESS=$(sed -e "s/://g" /sys/class/net/eth0/address)
+CUSTOM_HOSTNAME=$(grep -m 1 ${MAC_ADDRESS} /payload/hosts.cfg | awk '{print $2}')
+[ -z "$CUSTOM_HOSTNAME" ] && CUSTOM_HOSTNAME=${MAC_ADDRESS}
+sed -i "s/56cd6262/${MAC_ADDRESS}/g" /tmp/root/etc/hostname
+sed -i "s/56cd6262/${MAC_ADDRESS}/g" /tmp/root/etc/hosts
+
 sync
 
 echo "rebooting"
